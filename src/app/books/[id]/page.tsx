@@ -3,7 +3,7 @@ import BookDetailView from "@/app/books/[id]/(components)/BookDetailView";
 import {Book} from "@/app/(root)/book.type";
 
 async function getBook(id: string)  : Promise<Book | null> {
-    const res = await fetch(`http://localhost:3001/books/${id}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/books/${id}`)
     if (!res.ok) return null
     return await res.json()
 }

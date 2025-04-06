@@ -13,13 +13,14 @@ export default function ModifyView({book_id}: { book_id: string }) {
     const [cropOpen, setCropOpen] = useState(false)
 
     const router = useRouter()
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     useEffect(() => {
         const fetchBook = async () => {
-            const res = await fetch(`http://localhost:3001/books/${book_id}`)
+            const res = await fetch(`${apiBaseUrl}/books/${book_id}`)
             const data : Book = await res.json()
             setBook(data)
-            setImagePreview(`http://localhost:3001${data.image}`) // 기본 이미지 넣기
+            setImagePreview(`${apiBaseUrl}${data.image}`) // 기본 이미지 넣기
         }
         fetchBook()
     }, [book_id])
@@ -56,7 +57,7 @@ export default function ModifyView({book_id}: { book_id: string }) {
 
         if (imageFile) formData.set('image', imageFile)
 
-        const res = await fetch(`http://localhost:3001/books/${book_id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/books/${book_id}`, {
             method: 'PUT',
             body: formData,
         })

@@ -24,6 +24,7 @@ export default function Home({
         total: 0,
         totalPages: 0,
     })
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     const router = useRouter()
     const {page, keyword, category} = use(searchParams)
@@ -45,7 +46,7 @@ export default function Home({
             .join('&')
         console.log('queryString', queryString)
 
-        fetch(`http://localhost:3001/books?${queryString}`)
+        fetch(`${apiBaseUrl}/books?${queryString}`)
             .then(res => res.json())
             .then((data: PaginatedBooks) => {
                 setPagination(data)
@@ -116,7 +117,7 @@ export default function Home({
                             onClick={() => router.push(`/books/${book.id}`)}
                             style={{cursor: 'pointer'}}
                         >
-                            <S.BookImage loading="lazy"  src={`http://localhost:3001${book.image}`} alt={book.title}/>
+                            <S.BookImage loading="lazy"  src={`${apiBaseUrl}${book.image}`} alt={book.title}/>
                             <S.BookDetailContainer>
                                 <S.BookTitle>{book.title}</S.BookTitle>
                                 <p>

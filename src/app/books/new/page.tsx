@@ -50,7 +50,7 @@ export default function NewBookPage() {
         formData.append('stock', String(stock))
         formData.append('image', imageFile)
 
-        const res = await fetch('http://localhost:3001/books', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/books`, {
             method: 'POST',
             body: formData,
         })
